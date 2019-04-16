@@ -1,6 +1,6 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.entity;
 
-import lombok.Builder;
+import com.jopp.springrestservice.definitions.Status;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -11,16 +11,16 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(name = "CUSTOMER_ORDER")
-class Order {
+public class Order {
 
-    Order(){}
+    public Order(){}
 
     @Id @GeneratedValue private Long id;
 
     private String description;
     private Status status;
 
-    Order(String description, Status status) {
+    public Order(String description, Status status) {
         this.description = description;
         this.status = status;
     }

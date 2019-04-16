@@ -1,5 +1,8 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.assembler;
 
+import com.jopp.springrestservice.definitions.Status;
+import com.jopp.springrestservice.controller.OrderController;
+import com.jopp.springrestservice.entity.Order;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
@@ -8,7 +11,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
-class OrderResourceAssembler implements ResourceAssembler<Order, Resource<Order>> {
+public class OrderResourceAssembler implements ResourceAssembler<Order, Resource<Order>> {
 
     @Override
     public Resource<Order> toResource(Order order) {

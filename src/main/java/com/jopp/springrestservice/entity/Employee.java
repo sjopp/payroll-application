@@ -1,4 +1,4 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -8,16 +8,16 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-class Employee {
+public class Employee {
 
-    Employee() {}
+    public Employee() {}
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
     private String firstName;
     private String lastName;
     private String role;
 
-    Employee(String firstName, String lastName, String role) {
+    public Employee(String firstName, String lastName, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;

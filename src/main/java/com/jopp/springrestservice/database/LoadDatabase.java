@@ -1,4 +1,9 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.database;
+import com.jopp.springrestservice.entity.Order;
+import com.jopp.springrestservice.repository.OrderRepository;
+import com.jopp.springrestservice.definitions.Status;
+import com.jopp.springrestservice.entity.Employee;
+import com.jopp.springrestservice.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.CommandLineRunner;

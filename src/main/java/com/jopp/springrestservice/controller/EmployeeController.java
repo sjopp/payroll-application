@@ -1,10 +1,14 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.jopp.springrestservice.entity.Employee;
+import com.jopp.springrestservice.exception.EmployeeNotFoundException;
+import com.jopp.springrestservice.repository.EmployeeRepository;
+import com.jopp.springrestservice.assembler.EmployeeResourceAssembler;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +24,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-class EmployeeController {
+public class EmployeeController {
 
     private final EmployeeRepository repository;
     private final EmployeeResourceAssembler assembler;
@@ -33,7 +37,7 @@ class EmployeeController {
     // Aggregate root
 
     @GetMapping("/employees")
-    Resources<Resource<Employee>> all() {
+    public Resources<Resource<Employee>> all() {
 
         List<Resource<Employee>> employees = repository.findAll().stream()
                 .map(assembler::toResource)
@@ -55,7 +59,7 @@ class EmployeeController {
     // Single item
 
     @GetMapping("/employees/{id}")
-    Resource<Employee> one(@PathVariable Long id) {
+    public Resource<Employee> one(@PathVariable Long id) {
 
         Employee employee = repository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));

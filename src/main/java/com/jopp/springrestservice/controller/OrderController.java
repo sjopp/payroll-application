@@ -1,5 +1,10 @@
-package com.jopp.springrestservice;
+package com.jopp.springrestservice.controller;
 
+import com.jopp.springrestservice.exception.OrderNotFoundException;
+import com.jopp.springrestservice.repository.OrderRepository;
+import com.jopp.springrestservice.assembler.OrderResourceAssembler;
+import com.jopp.springrestservice.definitions.Status;
+import com.jopp.springrestservice.entity.Order;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -15,7 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-class OrderController {
+public class OrderController {
 
     private final OrderRepository orderRepository;
     private final OrderResourceAssembler assembler;
@@ -26,7 +31,7 @@ class OrderController {
     }
 
     @GetMapping("/orders")
-    Resources<Resource<Order>> all() {
+    public Resources<Resource<Order>> all() {
 
         List<Resource<Order>> orders = orderRepository.findAll().stream()
                 .map(assembler::toResource)
@@ -37,14 +42,14 @@ class OrderController {
     }
 
     @GetMapping("/orders/{id}")
-    Resource<Order> one(@PathVariable Long id) {
+    public Resource<Order> one(@PathVariable Long id) {
         return assembler.toResource(
                 orderRepository.findById(id)
                         .orElseThrow(() -> new OrderNotFoundException(id)));
     }
 
     @PostMapping("/orders")
-    ResponseEntity<Resource<Order>> newOrder(@RequestBody Order order) {
+    public ResponseEntity<Resource<Order>> newOrder(@RequestBody Order order) {
 
         order.setStatus(Status.IN_PROGRESS);
         Order newOrder = orderRepository.save(order);
@@ -55,7 +60,7 @@ class OrderController {
     }
 
     @PutMapping("/orders/{id}/complete")
-    ResponseEntity<ResourceSupport> complete(@PathVariable Long id) {
+    public ResponseEntity<ResourceSupport> complete(@PathVariable Long id) {
 
         Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
 
@@ -70,7 +75,7 @@ class OrderController {
     }
 
     @DeleteMapping("/orders/{id}/cancel")
-    ResponseEntity<ResourceSupport> cancel(@PathVariable Long id) {
+    public ResponseEntity<ResourceSupport> cancel(@PathVariable Long id) {
 
         Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
 

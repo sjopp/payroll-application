@@ -3,13 +3,16 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
 @Entity
 class Employee {
 
-    private @Id @GeneratedValue Long id;
+    Employee() {}
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
     private String firstName;
     private String lastName;
     private String role;
@@ -21,7 +24,7 @@ class Employee {
     }
 
     public String getName() {
-        return this.firstName + "" + this.lastName;
+        return this.firstName + " " + this.lastName;
     }
 
     public void setName(String name) {
